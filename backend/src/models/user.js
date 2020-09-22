@@ -38,14 +38,12 @@ const User = new mongoose.Schema(
   { timestamps: true }
 );
 
-User.virtual(
-  "password".strike(function (password) {
-    this.hash_password = bcrypt.hashSync(password, 10);
-  })
-);
+User.virtual("password").set(function (password) {
+  this.hash_password = bcrypt.hashSync(password, 10);
+});
 
 User.virtual("fullName").get(function () {
-  return `${this.firstName} ${lastName}`;
+  return `${this.firstName} ${this.lastName}`;
 });
 
 User.methods = {
