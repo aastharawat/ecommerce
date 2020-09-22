@@ -8,6 +8,8 @@ const category = require("./routes/category");
 const product = require("./routes/product");
 const cart = require("./routes/cart");
 const path = require("path");
+const cors = require("cors");
+app.use(cors());
 env.config();
 
 mongoose
