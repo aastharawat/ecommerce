@@ -1,5 +1,6 @@
 import axios from "../helper/axios";
 import { authConstants } from "./constants";
+
 export const login = (user) => {
   return async (dispatch) => {
     dispatch({
@@ -8,7 +9,6 @@ export const login = (user) => {
     const res = await axios.post("http://localhost:9000/api/signIn", {
       ...user,
     });
-    console.log(res);
     if (res.status === 200) {
       const { token, user } = res.data;
       localStorage.setItem("token", token);
@@ -44,5 +44,15 @@ export const isUserLoggedIn = () => {
         payload: { error: "Failed to retrieve" },
       });
     }
+  };
+};
+
+export const signOut = () => {
+  return async (dispatch) => {
+    console.log("Dfdfs");
+    localStorage.clear();
+    dispatch({
+      type: authConstants.LOGOUT_REQUEST,
+    });
   };
 };

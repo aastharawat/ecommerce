@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Container, Form, Button, Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { login, isUserLoggedIn } from "../../action/auth.actions";
+import { login } from "../../action/auth.actions";
 import Layout from "../../components/layout";
 import Input from "../../components/UI/Input/input";
 
@@ -13,11 +13,6 @@ export default function Signin() {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (!auth.authenticate) {
-      dispatch(isUserLoggedIn());
-    }
-  }, []);
   const userLogin = (e) => {
     e.preventDefault();
     const user = { email, password };
@@ -38,7 +33,7 @@ export default function Signin() {
                 type="email"
                 value={email}
                 onChange={(e) => {
-                  setemail(e);
+                  setemail(e.target.value);
                 }}
               />
               <Input
@@ -47,7 +42,7 @@ export default function Signin() {
                 type="password"
                 value={password}
                 onChange={(e) => {
-                  setpassword(e);
+                  setpassword(e.target.value);
                 }}
               />
               <Button variant="primary" type="submit">
