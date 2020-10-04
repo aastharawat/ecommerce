@@ -38,7 +38,6 @@ exports.signUp = (req, res) => {
 };
 
 exports.signIn = (req, res) => {
-  console.log("fsdf");
   User.findOne({ email: req.body.email }).exec((err, user) => {
     if (user) {
       if (user.authenticate(req.body.password)) {
@@ -46,7 +45,7 @@ exports.signIn = (req, res) => {
           { _id: user._id, role: user.role },
           process.env.JWT_SECRETKEY,
           {
-            expiresIn: "1h",
+            expiresIn: "1d",
           }
         );
         const { firstName, email, role, fullName } = user;

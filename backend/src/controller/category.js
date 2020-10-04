@@ -15,6 +15,7 @@ const createCategoryList = (categories, parentId = null) => {
       _id: c.id,
       name: c.name,
       slug: c.slug,
+      parentId: c.parentId,
       subCategories: createCategoryList(categories, c._id),
     });
   }
@@ -29,10 +30,11 @@ exports.addCategory = (req, res) => {
     categoryDetail.categoryImage =
       process.env.API + "/public/" + req.file.filename;
   }
-  if (req.body.parentId) {
+  if (req.body.parentId && req.body.parentId !== "") {
     categoryDetail.parentId = req.body.parentId;
   }
   const categoryObj = new Category(categoryDetail);
+
   categoryObj.save((error, category) => {
     if (error) {
       res.status(400).json({ error: error });

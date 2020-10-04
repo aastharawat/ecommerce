@@ -49,7 +49,6 @@ export const isUserLoggedIn = () => {
 
 export const signOut = () => {
   return async (dispatch) => {
-    console.log("Dfdfs");
     localStorage.clear();
     dispatch({
       type: authConstants.LOGOUT_REQUEST,

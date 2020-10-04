@@ -5,8 +5,7 @@ import Signin from "./container/Signin";
 import Signup from "./container/Signup";
 import Home from "./container/Home";
 import { useDispatch, useSelector } from "react-redux";
-import { isUserLoggedIn } from "./action/auth.actions";
-
+import { getProducts, getCategories, isUserLoggedIn } from "./action/index.js";
 import PrivateRoute from "./components/HOC/PrivateRoute";
 import Products from "./container/Products";
 import Orders from "./container/Orders";
@@ -18,6 +17,8 @@ function App() {
   useEffect(() => {
     if (!auth.authenticate) {
       dispatch(isUserLoggedIn());
+      dispatch(getCategories());
+      dispatch(getProducts());
     }
   });
   return (

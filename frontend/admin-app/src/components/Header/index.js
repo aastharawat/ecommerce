@@ -45,7 +45,7 @@ export default function Header() {
       expand="lg"
       bg="dark"
       variant="dark"
-      style={{ zIndex: 1 }}
+      style={{ zIndex: 1, position: "fixed", width: "100%" }}
     >
       <Container fluid>
         <Link to="/" className="navbar-brand">

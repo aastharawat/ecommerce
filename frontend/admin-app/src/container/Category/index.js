@@ -2,32 +2,32 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Modal, Button } from "react-bootstrap";
 import Layout from "../../components/layout";
 import { useDispatch, useSelector } from "react-redux";
-import { getCategories } from "../../action/index.js";
+import { addCategories } from "../../action/index.js";
 import Input from "../../components/UI/Input/input";
 
 export default function Category() {
   const dispatch = useDispatch();
   const [show, setshow] = useState(false);
-  const [categoryName, setcategoryName] = useState(false);
-  const [parentCategoryName, setparentCategoryName] = useState(false);
-  const [categoryImage, setcategoryImage] = useState(false);
+  const [name, setname] = useState("");
+  const [parentId, setparentId] = useState("");
+  const [categoryImg, setcategoryImg] = useState("");
 
   const state = useSelector((state) => state.category);
-  useEffect(() => {
-    dispatch(getCategories());
-  });
 
   const handleClose = () => {
     setshow(false);
   };
 
-  const handleSave = () => {
-    const category = { categoryName, parentCategoryName, categoryImage };
-    console.log(category);
+  const handleSave = (e) => {
+    setshow(false);
+
+    const newCategory = { name, parentId, categoryImg };
+    dispatch(addCategories(newCategory));
   };
 
   const renderCategories = (categories) => {
     let myCategories = [];
+
     categories.map((category) => {
       myCategories.push(
         <li key={category.name}>
@@ -43,8 +43,8 @@ export default function Category() {
 
   const getParentCategories = () => {
     let myCategories = [];
-    state.category.map((category) => {
-      myCategories.push(<option key={category.name}>{category.name}</option>);
+    state.category.map((item) => {
+      myCategories.push(<option value={item._id}>{item.name}</option>);
     });
     return myCategories;
   };
@@ -77,15 +77,16 @@ export default function Category() {
               label="Category name"
               placeholder="Enter category name"
               type="text"
-              value={categoryName}
+              value={name}
               onChange={(e) => {
-                setcategoryName(e.target.value);
+                setname(e.target.value);
               }}
             />
 
             <select
+              className="form-control"
               onChange={(e) => {
-                setparentCategoryName(e.target.value);
+                setparentId(e.target.value);
               }}
             >
               <option>Select category</option>
@@ -93,11 +94,10 @@ export default function Category() {
             </select>
 
             <Input
-              label="Upload category image"
               placeholder="upload category image"
               type="file"
               onChange={(e) => {
-                setcategoryImage(e.target.files[0]);
+                setcategoryImg(e.target.files[0]);
               }}
             />
           </Modal.Body>

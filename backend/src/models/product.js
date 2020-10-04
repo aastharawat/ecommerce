@@ -7,13 +7,14 @@ const productSchema = new mongoose.Schema(
     price: { type: Number, required: true },
     description: { type: String, required: true, trim: true },
     offer: { type: Number },
-    productPictures: { img: { type: String } },
+    productPictures: [{ img: { type: String } }],
     reviews: [
       {
         userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
         review: String,
       },
     ],
+    quantity: { type: Number, required: true },
     category: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Category",

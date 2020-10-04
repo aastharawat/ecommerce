@@ -6,7 +6,6 @@ exports.addItemToCart = (req, res) => {
       return res.status(400).json({ error });
     }
     if (cart.length) {
-      console.log("cart", cart);
       const product = req.body.cartItems.product;
       const item = cart[0].cartItems.find(
         (c) => c.product == req.body.cartItems.product
@@ -30,8 +29,6 @@ exports.addItemToCart = (req, res) => {
           }
         });
       } else {
-        console.log(" no cart");
-
         Cart.findOneAndUpdate(
           { user: req.user._id },
           {
