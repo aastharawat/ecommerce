@@ -2,7 +2,11 @@ const express = require("express");
 const { isAdmin, requireSignIn } = require("../controller/auth");
 const route = express.Router();
 const multer = require("multer");
-const { addProduct, getProducts } = require("../controller/product");
+const {
+  addProduct,
+  getProducts,
+  getProductBySlug,
+} = require("../controller/product");
 const shortid = require("shortid");
 const path = require("path");
 
@@ -17,6 +21,7 @@ const storage = multer.diskStorage({
 
 var upload = multer({ storage: storage });
 route.get("/product/fetch", getProducts);
+
 route.post(
   "/product/create",
   requireSignIn,
@@ -24,5 +29,7 @@ route.post(
   upload.array("productPicture"),
   addProduct
 );
+
+route.get("/getProduct/:slug", getProductBySlug);
 
 module.exports = route;
