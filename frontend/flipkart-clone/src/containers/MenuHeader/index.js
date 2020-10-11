@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
-import "../style.css";
+import "./style.css";
 import { useSelector, useDispatch } from "react-redux";
 import { getCategories } from "../../action/index";
+import { Link } from "react-router-dom";
 export default function MenuHeader() {
   const dispatch = useDispatch();
 
@@ -19,11 +20,11 @@ export default function MenuHeader() {
             {category.subCategories.map((item) => (
               <li>
                 <a>{item.name}</a>
-                <ul>
+                <ul style={{ display: "block", fontSize: "13px" }}>
                   {item.subCategories.map((subItem) => (
-                    <li>
+                    <Link to={`/${subItem.slug}`}>
                       <a>{subItem.name}</a>
-                    </li>
+                    </Link>
                   ))}
                 </ul>
               </li>

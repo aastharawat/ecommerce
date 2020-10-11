@@ -10,12 +10,18 @@
   list-style: none;
   margin: 0;
   padding: 0;
+  cursor: pointer;
 }
 
 .menuHeader > ul {
   display: flex;
   position: relative;
   margin: 0 50px;
+}
+
+.menuHeader > ul > li ul {
+  display: block;
+  position: relative;
 }
 
 .menuHeader > ul > li > span {

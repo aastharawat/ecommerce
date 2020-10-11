@@ -7,9 +7,12 @@ const product = require("../models/product");
 exports.addProduct = (req, res) => {
   const { name, price, quantity, description, category, createdBy } = req.body;
 
+  console.log(req.files.length);
+  // console.log(req.files.length());
+
   let productPictures = [];
-  if (req.body.productPicture.length) {
-    productPictures = req.body.productPicture.map((file) => {
+  if (req.files.length) {
+    productPictures = req.files.map((file) => {
       return { img: file.filename };
     });
   }
@@ -59,11 +62,11 @@ exports.getProductBySlug = (req, res) => {
             productByPrice: {
               under5k: product.filter((product) => product.price <= 5000),
               under10k: product.filter(
-                (product) => product.price > 5000 && product.price <= 10000
+                (product) => product.price >= 5000 && product.price < 10000
               ),
 
               under10k: product.filter(
-                (product) => product.price > 10000 && product.price <= 15000
+                (product) => product.price >= 10000 && product.price <= 15000
               ),
               under15k: product.filter(
                 (product) => product.price > 15000 && product.price <= 20000
