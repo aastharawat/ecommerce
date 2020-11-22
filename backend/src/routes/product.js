@@ -28,7 +28,7 @@ route.post(
   isAdmin,
   upload.array("productPicture"),
   addProduct
-);
+);  
 
 route.get("/getProduct/:slug", getProductBySlug);
 
